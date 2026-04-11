@@ -7,4 +7,13 @@ async function getAllItems(req, res) {
     res.render('index',{title: 'Game Management App', data: data})
 }
 
-module.exports = { getAllItems }
+//function to render the categoies page and provide data to categories
+async function getByCategories(req, res) {
+    const data = await db.getGenreCount()
+    res.render('categories',{data: data})
+}
+
+module.exports = { 
+    getAllItems,
+    getByCategories 
+}
