@@ -1,5 +1,5 @@
 <%# component for showing categories page %>
-<%- include('navbar') %>
+<%- include('navbar',{title: 'Game Management App'}) %>
 <section>
     <% data.forEach(item=>{ %>
         <h1><%= item.genre %></h1>

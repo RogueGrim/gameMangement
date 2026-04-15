@@ -13,7 +13,13 @@ async function getByCategories(req, res) {
     res.render('categories',{data: data})
 }
 
+async function editItems(req, res) {
+    const data  = await db.getAllEntries()
+    res.render('manageInventory',{items: data})
+}
+
 module.exports = { 
     getAllItems,
-    getByCategories 
+    getByCategories,
+    editItems
 }

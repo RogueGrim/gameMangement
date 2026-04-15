@@ -21,7 +21,7 @@ async function getGenreCount() {
     return rows
 }
 
-//function to get the devlopers and  count of each game by that developer
+//function to get the developers and  count of each game by that developer
 async function getDevCount() {
     const SQL = `
         SELECT dev_name, COUNT(game_name) AS count FROM data
@@ -32,6 +32,7 @@ async function getDevCount() {
     const { rows } = await pool.query(SQL)
     return rows
 }
+
 module.exports = {
     getAllEntries,
     getGenreCount,
