@@ -3,7 +3,7 @@ const pool = require('./pool')
 //fucntion to get all entries from database
 async function getAllEntries() {
     const SQL = `
-        select game_name, genre, dev_name from data 
+        select id, game_name, genre, dev_name from data 
         join game_info on data.game_id = game_info.game_id 
         join dev_info on data.dev_id = dev_info.dev_id;
     `
@@ -33,8 +33,19 @@ async function getDevCount() {
     return rows
 }
 
+async function deleteRow(id) {
+
+    const { rows }  = await pool.query(`SELECT game_id from data WHERE id = $1`,[id])
+    const gameID = rows[0].game_id.toUpperCase()
+
+    await pool.query(`DELETE FROM data WHERE id = $1;`,[id])
+    await pool.query(`DELETE FROM game_info WHERE game_id = $1;`,[gameID])
+    console.log('Deleted')
+}
+
 module.exports = {
     getAllEntries,
     getGenreCount,
-    getDevCount
+    getDevCount,
+    deleteRow,
 }

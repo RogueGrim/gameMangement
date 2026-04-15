@@ -1,6 +1,5 @@
-import { Client } from "pg";
-import dotenv from "dotenv";
-dotenv.config();
+require('dotenv').config({path:'../.env'})
+const { Client } = require('pg')
 
 const createTableGame = `
 
@@ -36,7 +35,8 @@ const insertData1 = `
     ('G2', 'Minecraft', 'Sandbox'),
     ('G3', 'GTA V', 'Action'),
     ('G4', 'Elden Ring', 'RPG'),
-    ('G5', 'FIFA 24', 'Sports');
+    ('G5', 'FIFA 24', 'Sports')
+    ON CONFLICT(game_id) DO NOTHING;
 `
 const insertData2 = `
 
@@ -45,7 +45,8 @@ const insertData2 = `
     ('D2', 'Mojang'),
     ('D3', 'Rockstar Games'),
     ('D4', 'FromSoftware'),
-    ('D5', 'EA Sports');
+    ('D5', 'EA Sports')
+    ON CONFLICT(dev_id) DO NOTHING;
 `
 const insertData3 = `
 

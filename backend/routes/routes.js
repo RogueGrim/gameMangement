@@ -7,4 +7,6 @@ router.get('/', Controller.getAllItems)
 router.get('/categories', Controller.getByCategories)
 router.get('/management', Controller.editItems)
 
+router.get('/management/delete/:id', Controller.deleteEntry)
+
 module.exports = router
