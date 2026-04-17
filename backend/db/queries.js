@@ -11,6 +11,18 @@ async function getAllEntries() {
     return rows
 }
 
+//function to get a specific row
+async function getRow(id) {
+    const SQL = `
+        SELECT id, game_name, data.game_id, genre, dev_name, data.dev_id FROM data
+        JOIN game_info ON data.game_id = game_info.game_id
+        JOIN dev_info ON data.dev_id = dev_info.dev_id
+        WHERE id = $1
+    `
+    const { rows } = await pool.query(SQL,[id])
+    return rows
+}
+
 //function to get the genre and count of each game in that genre
 async function getGenreCount() {
     const SQL = `
@@ -45,6 +57,7 @@ async function deleteRow(id) {
 
 module.exports = {
     getAllEntries,
+    getRow,
     getGenreCount,
     getDevCount,
     deleteRow,

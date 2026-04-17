@@ -25,9 +25,18 @@ async function deleteEntry(req, res) {
     res.redirect('/management')
 }
 
+//function to gove data to form on edit page
+ async function editEntry(req, res) {
+    const id = req.params.id
+    const  item  = await db.getRow(id)
+    console.log(item)
+    res.render('editForm',{item: item[0]})
+ }
+
 module.exports = { 
     getAllItems,
     getByCategories,
     editItems,
-    deleteEntry
+    deleteEntry,
+    editEntry
 }

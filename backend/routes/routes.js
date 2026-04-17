@@ -9,4 +9,6 @@ router.get('/management', Controller.editItems)
 
 router.get('/management/delete/:id', Controller.deleteEntry)
 
+router.get('/management/edit/:id', Controller.editEntry)
+
 module.exports = router
