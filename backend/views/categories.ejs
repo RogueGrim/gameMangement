@@ -1,8 +1,21 @@
-<%# component for showing categories page %>
-<%- include('navbar',{title: 'Game Management App'}) %>
-<section>
-    <% data.forEach(item=>{ %>
-        <h1><%= item.genre %></h1>
-        <p><%= item.count %></p>
-    <% }) %>
-</section>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categories</title>
+</head>
+<body>
+    <%# component for showing categories page %>
+    <%- include('navbar',{title: 'Game Management App'}) %>
+    <section>
+        <% data.forEach(item=>{ %>
+            <h1><%= item.genre %></h1>
+            <p><%= item.count %></p>
+        <% }) %>
+
+    </section>
+    
+</body>
+</html>
+

@@ -11,4 +11,8 @@ router.get('/management/delete/:id', Controller.deleteEntry)
 
 router.get('/management/edit/:id', Controller.editEntry)
 
+router.post('/management/edit/:id', Controller.updateEntry)
+
+router.use('/addEntry', Controller.addEntry )
+
 module.exports = router

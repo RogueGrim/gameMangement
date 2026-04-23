@@ -1,6 +1,5 @@
 const db = require('../db/queries')
 
-
 //function to render the index and provide data to index
 async function getAllItems(req, res) {
     const data = await db.getAllEntries()
@@ -25,18 +24,31 @@ async function deleteEntry(req, res) {
     res.redirect('/management')
 }
 
-//function to gove data to form on edit page
+//function to give data to form on edit page
  async function editEntry(req, res) {
     const id = req.params.id
     const  item  = await db.getRow(id)
-    console.log(item)
     res.render('editForm',{item: item[0]})
- }
+}
+
+//function to update the entry on edit page
+ async function updateEntry(req, res) {
+    const data = req.body
+    const id = req.params.id
+    await db.updateRow(id,data)
+    res.redirect('/management')
+}
+
+function addEntry(req, res){
+    res.render('addEntry')
+}
 
 module.exports = { 
     getAllItems,
     getByCategories,
     editItems,
     deleteEntry,
-    editEntry
+    editEntry,
+    updateEntry,
+    addEntry
 }

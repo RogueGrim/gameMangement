@@ -45,8 +45,8 @@ async function getDevCount() {
     return rows
 }
 
+//function to delete a row from the database by using id from query
 async function deleteRow(id) {
-
     const { rows }  = await pool.query(`SELECT game_id from data WHERE id = $1`,[id])
     const gameID = rows[0].game_id.toUpperCase()
 
@@ -55,10 +55,36 @@ async function deleteRow(id) {
     console.log('Deleted')
 }
 
+// function to update a row from the database by using id from query
+async function updateRow(id,data) {
+
+    const { rows } = await pool.query('SELECT * FROM data WHERE id = $1',[id]) //query to get original id, game_id and dev_id
+    const gameID = rows[0].game_id.toUpperCase()
+    const devID = rows[0].dev_id.toUpperCase()
+
+    const updateGame_info = `
+        UPDATE game_info
+        SET game_name = $1, genre = $2
+        WHERE game_id = $3;
+    `
+    const updateDev_info = `
+        UPDATE dev_info
+        SET dev_name = $1
+        WHERE dev_id = $2;
+    ` 
+    await pool.query(updateGame_info,[data.game_name,data.genre,gameID])
+    console.log('Game Table Updated')
+
+    await pool.query(updateDev_info,[data.dev_name,devID])
+    console.log('Dev Table Updated')
+
+}
+
 module.exports = {
     getAllEntries,
     getRow,
     getGenreCount,
     getDevCount,
     deleteRow,
+    updateRow
 }

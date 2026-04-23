@@ -9,17 +9,12 @@
     <%- include('navbar',{title: 'Game Management App'}) %>
 
     <form action="/management/edit/<%= item.id %>" method="post">
-        <label for="game_id">Game ID: </label>
-        <input type="text" name="game_id" value="<%= item.game_id %>">
-
+        
         <label for="game_name">Game Name: </label>
         <input type="text" name="game_name" value="<%= item.game_name %>">
         
         <label for="genre">Genre:</label>
         <input type="text" name="genre" value="<%= item.genre %>">
-
-        <label for="dev_id">Developer ID: </label>
-        <input type="text" name="dev_id" value="<%= item.dev_id %>">
 
         <label for="dev_name">Developer Name: </label>
         <input type="text" name="dev_name" value="<%= item.dev_name %>">
