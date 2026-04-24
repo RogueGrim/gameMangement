@@ -8,9 +8,9 @@
 </head>
 <body>
     <%- include('navbar',{title: 'Game Management App'}) %>
-    <a href="/addEntry"> <button>Add New Entry</button> </a>
+    <a href="/management/addGame"> <button>Add New Game</button> </a>
+    <a href="/management/addGenre"> <button>Add New Genre</button> </a>
+    <a href="/management/addDev"> <button>Add New Developer</button> </a>
     <%- include('./layouts/editCard',{data: items}) %>
-
- 
 </body>
 </html>

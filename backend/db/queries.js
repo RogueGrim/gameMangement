@@ -3,7 +3,7 @@ const pool = require('./pool')
 //fucntion to get all entries from database
 async function getAllEntries() {
     const SQL = `
-        select id, game_name, genre, dev_name from data 
+        select id, data.game_id, data.dev_id, game_name, genre, dev_name from data 
         join game_info on data.game_id = game_info.game_id 
         join dev_info on data.dev_id = dev_info.dev_id;
     `
@@ -71,7 +71,8 @@ async function updateRow(id,data) {
         UPDATE dev_info
         SET dev_name = $1
         WHERE dev_id = $2;
-    ` 
+    `
+    
     await pool.query(updateGame_info,[data.game_name,data.genre,gameID])
     console.log('Game Table Updated')
 

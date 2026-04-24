@@ -39,8 +39,17 @@ async function deleteEntry(req, res) {
     res.redirect('/management')
 }
 
-function addEntry(req, res){
-    res.render('addEntry')
+//fucnction to render a new form page and post data for game information
+async function addGame(req, res) {
+    res.render('addGameForm')
+}
+//fucnction to render a new form page and post data for developer information
+async function addDev(req, res) {
+    res.render('addDevForm')
+}
+//fucnction to render a new form page and post data for new genre
+async function addGenre(req, res) {
+    res.render('addGenreForm')
 }
 
 module.exports = { 
@@ -50,5 +59,7 @@ module.exports = {
     deleteEntry,
     editEntry,
     updateEntry,
-    addEntry
+    addGame,
+    addDev,
+    addGenre
 }

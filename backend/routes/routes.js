@@ -10,9 +10,14 @@ router.get('/management', Controller.editItems)
 router.get('/management/delete/:id', Controller.deleteEntry)
 
 router.get('/management/edit/:id', Controller.editEntry)
-
 router.post('/management/edit/:id', Controller.updateEntry)
 
-router.use('/addEntry', Controller.addEntry )
+router.get('/management/addGame', Controller.addGame)
+
+router.get('/management/addDev', Controller.addDev)
+
+router.get('/management/addGenre', Controller.addGenre)
+
+
 
 module.exports = router
