@@ -6,9 +6,9 @@
     <title>Add New Genre</title>
 </head>
 <body>
-    <form action="/management/addGenre">
+    <form action="/management/addGenre" method="post">
         <label for="genre">Genre:</label>
-        <input type="text" name="genre">
+        <input type="text" name="genre" required>
 
         <button type="submit"> Submit</button>
     </form>

@@ -3,7 +3,7 @@
 <section>
     <div class="card">
         <h1>Game Information</h1>
-        <% data.forEach(item =>{ %>
+        <% gameData.forEach(item =>{ %>
             <div>
                 <div>
                     <h6>Game ID</h6>
@@ -13,11 +13,6 @@
                 <div>
                     <h6>Game Name</h6>
                     <p><%= item.game_name %></p>
-                </div>
-
-                <div>
-                    <h6>Genre</h6>
-                    <p><%= item.genre %></p>
                 </div>
                 
                 <form action="/management/edit/<%= item.id %>" method="get">
@@ -34,7 +29,7 @@
 
     <div class="card">
         <h1>Developer Information</h1>
-        <% data.forEach(item =>{ %>
+        <% devData.forEach(item =>{ %>
             <div>
                 <div>
                     <h6>Developer ID</h6>
@@ -55,6 +50,33 @@
                     <button>Delete</button>
                 </form>
             </div>
+        <% }) %>
+    </div>
+
+    <div class="card">
+        <h1>Genre Information</h1>
+        <% genreData.forEach(item =>{ %>
+            <div>
+                <div>
+                    <h6>Genre ID:</h6>
+                    <p><%= item.genre_id %></p>
+                </div>
+
+                <div>
+                    <h6>Genre</h6>
+                    <p><%= item.genre %></p>
+                </div>
+
+                <form action="/management/edit/<%= item.id %>" method="get">
+                    <button>Edit</button>
+                </form>
+
+                <form action="/management/delete/<%= item.id %>" method="get">
+                    <button>Delete</button>
+                </form>
+
+            </div>
+
         <% }) %>
     </div>
     

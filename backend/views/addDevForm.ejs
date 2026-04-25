@@ -6,9 +6,9 @@
     <title>Add Developer</title>
 </head>
 <body>
-    <form action="/management/addDev">
+    <form action="/management/addDev" method="post">
         <label for="dev_name">Developer Name:</label>
-        <input type="text" name="dev_name">
+        <input type="text" name="dev_name" required>
         
         <button type="submit">Submit</button>
     </form>

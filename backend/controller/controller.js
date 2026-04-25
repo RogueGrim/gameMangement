@@ -14,8 +14,10 @@ async function getByCategories(req, res) {
 
 //function to render the items on manage inventory page
 async function editItems(req, res) {
-    const data  = await db.getAllEntries()
-    res.render('manageInventory',{items: data})
+    const game_Data  = await db.getGameInfo()
+    const dev_Data = await db.getDevInfo()
+    const genre_Data = await db.getGenreInfo()
+    res.render('manageInventory',{gameData: game_Data, devData: dev_Data, genreData: genre_Data })
 }
 //function to delete an entry from the inventory page
 async function deleteEntry(req, res) {
@@ -39,17 +41,37 @@ async function deleteEntry(req, res) {
     res.redirect('/management')
 }
 
-//fucnction to render a new form page and post data for game information
-async function addGame(req, res) {
+//function to render a new form page and post data for game information
+function addGame(req, res) {
     res.render('addGameForm')
 }
-//fucnction to render a new form page and post data for developer information
-async function addDev(req, res) {
+
+//function to pass data to add new game
+async function handleGameData(req, res) {
+    const name = req.body.game_name
+    await db.addNewGame(name)
+    res.redirect('/management')
+}
+//function to render a new form page for Developer Information
+function addDev(req, res) {
     res.render('addDevForm')
 }
-//fucnction to render a new form page and post data for new genre
-async function addGenre(req, res) {
+//function to pass data to add new developer
+async function handleDevData(req, res) {
+    const name = req.body.dev_name
+    await db.addNewDev(name)
+    res.redirect('/management')
+}
+//function to render a new form page and post data for new genre
+function addGenre(req, res) {
     res.render('addGenreForm')
+}
+
+//function to pass data to add new genre
+async function handleGenreData(req, res) {
+    const genre = req.body.genre
+    await db.addNewGenre(genre)
+    res.redirect('/management')
 }
 
 module.exports = { 
@@ -61,5 +83,8 @@ module.exports = {
     updateEntry,
     addGame,
     addDev,
-    addGenre
+    addGenre,
+    handleDevData,
+    handleGenreData,
+    handleGameData
 }

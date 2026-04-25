@@ -11,6 +11,6 @@
     <a href="/management/addGame"> <button>Add New Game</button> </a>
     <a href="/management/addGenre"> <button>Add New Genre</button> </a>
     <a href="/management/addDev"> <button>Add New Developer</button> </a>
-    <%- include('./layouts/editCard',{data: items}) %>
+    <%- include('./layouts/editCard',{gameData: gameData, devData: devData, genreData: genreData}) %>
 </body>
 </html>
