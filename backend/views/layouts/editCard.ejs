@@ -15,11 +15,11 @@
                     <p><%= item.game_name %></p>
                 </div>
                 
-                <form action="/management/edit/<%= item.id %>" method="get">
+                <form action="/management/editGame/<%= item.game_id %>" method="get">
                     <button>Edit</button>
                 </form>
 
-                <form action="/management/delete/<%= item.id %>" method="get">
+                <form action="/management/deleteGame/<%= item.game_id %>" method="get">
                     <button>delete</button>
                 </form>
             </div>
@@ -42,11 +42,11 @@
                 </div>
                 
 
-                <form action="/management/edit/<%= item.id %>" method="get">
+                <form action="/management/editDev/<%= item.dev_id %>" method="get">
                     <button>Edit</button>
                 </form>
 
-                <form action="/management/delete/<%= item.id %>" method="get">
+                <form action="/management/deleteDev/<%= item.dev_id %>" method="get">
                     <button>Delete</button>
                 </form>
             </div>
@@ -67,11 +67,11 @@
                     <p><%= item.genre %></p>
                 </div>
 
-                <form action="/management/edit/<%= item.id %>" method="get">
+                <form action="/management/editGenre/<%= item.genre_id %>" method="get">
                     <button>Edit</button>
                 </form>
 
-                <form action="/management/delete/<%= item.id %>" method="get">
+                <form action="/management/deleteGenre/<%= item.genre_id %>" method="get">
                     <button>Delete</button>
                 </form>
 

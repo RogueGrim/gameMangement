@@ -6,9 +6,25 @@
     <title>Add Game</title>
 </head>
 <body>
-    <form action="/management/addGame" method="post">
+    <form action="/management/addGame/<%= id %>" method="post">
         <label for="game_name"> Game Name:</label>
         <input type="text" name="game_name" required>
+        
+        
+        <div>
+            <% genre.forEach(item => { %>
+                <label>
+                    <input type="checkbox" name="genres" value="<%= item.genre_id %>">
+                    <%= item.genre %>
+                </label>
+            <% }) %>
+        </div>
+
+        <select name="dev_id">
+            <% dev.forEach(item => { %>
+                <option value="<%= item.dev_id %>"> <%= item.dev_name %> </option>
+            <% }) %>
+        </select>
 
         <button type="submit">Submit</button>
     </form>

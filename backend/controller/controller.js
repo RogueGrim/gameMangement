@@ -26,30 +26,63 @@ async function deleteEntry(req, res) {
     res.redirect('/management')
 }
 
-//function to give data to form on edit page
- async function editEntry(req, res) {
+//function to delete dev entry
+async function deleteDevEntry(req, res) {
     const id = req.params.id
-    const  item  = await db.getRow(id)
-    res.render('editForm',{item: item[0]})
+    await db.deleteDev(id)
+    res.redirect('/management')
+}
+
+//function to delete genre entry
+async function deleteGenreEntry(req, res) {
+    const id = req.params.id
+    await db.deleteGenre(id)
+    res.redirect('/management')
+}
+//function to give data to form on edit page
+ async function editDev(req, res) {
+    const id = req.params.id
+    const  item  = await db.getDevRow(id)
+    res.render('editDev',{item: item[0]})
 }
 
 //function to update the entry on edit page
- async function updateEntry(req, res) {
+ async function updateDev(req, res) {
     const data = req.body
     const id = req.params.id
-    await db.updateRow(id,data)
+    await db.updateDevEntry(id,data)
+    res.redirect('/management')
+}
+//function to get details from db and pass it to edit page
+async function editGenre(req, res) {
+    const id = req.params.id
+    const item = await db.getGenreRow(id)
+    res.render('editGenre',{item: item[0]})
+}
+
+//function to update the entry on edit page
+async function updateGenre(req, res) {
+    const data = req.body
+    const id = req.params.id
+    await db.updateGenreEntry(id,data)
     res.redirect('/management')
 }
 
 //function to render a new form page and post data for game information
-function addGame(req, res) {
-    res.render('addGameForm')
+async function addGame(req, res) {
+    const genredata = await db.getGenreInfo() //pass genre information 
+    const devData = await db.getDevInfo() // pass dev information
+    const id = await db.getNewGameID() // get new id for inserting
+    const genreInfo = await db.getGenreEntry() //get all genres related to game
+
+    res.render('addGameForm',{genre:genredata, dev: devData,id:id, genre_info: genreInfo})
 }
 
 //function to pass data to add new game
 async function handleGameData(req, res) {
-    const name = req.body.game_name
-    await db.addNewGame(name)
+    const data = req.body
+    const gameId = req.params.id
+    await db.addNewGame(gameId,data)
     res.redirect('/management')
 }
 //function to render a new form page for Developer Information
@@ -79,8 +112,12 @@ module.exports = {
     getByCategories,
     editItems,
     deleteEntry,
-    editEntry,
-    updateEntry,
+    editDev,
+    updateDev,
+    deleteDevEntry,
+    editGenre,
+    updateGenre,
+    deleteGenreEntry,
     addGame,
     addDev,
     addGenre,
