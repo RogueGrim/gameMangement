@@ -1,5 +1,14 @@
 require('dotenv').config({path:'../.env'})
 const { Client } = require('pg')
+//sql query to reset the db
+const resetDb = `
+    DROP TABLE IF EXISTS data;
+    DROP TABLE IF EXISTS genre_info;
+    DROP TABLE IF EXISTS genre;
+    DROP TABLE IF EXISTS game_info;
+    DROP TABLE IF EXISTS dev_info;
+    
+`
 
 //sql query to create table for game information
 const createTableGame = `
@@ -105,6 +114,9 @@ async function main() {
     })
 
     await client.connect();
+
+    await client.query(resetDb);
+    console.log('Database Reset');
 
     await client.query(createTableDev);
     console.log('Dev Table Created');
