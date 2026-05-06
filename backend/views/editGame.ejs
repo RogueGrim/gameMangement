@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Game</title>
+</head>
+<body>
+    <form action="/management/editGame/<%= gameData.game_id %>" method="post">
+
+        <label for="id">ID:</label>
+        <input type="text" name="id" readonly value="<%= gameData.game_id %>">
+
+        <label for="game_name">Game Name:</label>
+        <input type="text" name="game_name" value="<%= gameData.game_name %>">
+        
+        <div>
+            <label for="genre">Genre:</label>
+            <% genreInfo.forEach(item => { %>
+                <label for="genres">
+                    <input 
+                        type="checkbox" 
+                        name="genres" 
+                        value="<%= item.genre_id %>"
+                        <%= genreData.genres_id.includes(item.genre_id) ? "checked" : "" %>
+                    >
+                    <%= item.genre %>
+                </label>
+            <% }) %>
+        </div>
+        
+        <select name="dev_id">
+            <% devInfo.forEach(item => { %>
+                <option 
+                    value="<%= item.dev_id %>"
+                    <%= devData.dev_id == item.dev_id ? "selected" : "" %>
+                > <%= item.dev_name %> </option>
+            <% }) %>
+        </select>
+
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

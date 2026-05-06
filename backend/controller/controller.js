@@ -19,10 +19,10 @@ async function editItems(req, res) {
     const genre_Data = await db.getGenreInfo()
     res.render('manageInventory',{gameData: game_Data, devData: dev_Data, genreData: genre_Data })
 }
-//function to delete an entry from the inventory page
-async function deleteEntry(req, res) {
+//function to delete a game entry from the inventory page
+async function deleteGameEntry(req, res) {
     const id = req.params.id
-    await db.deleteRow(id)
+    await db.deleteGame(id)
     res.redirect('/management')
 }
 
@@ -37,6 +37,30 @@ async function deleteDevEntry(req, res) {
 async function deleteGenreEntry(req, res) {
     const id = req.params.id
     await db.deleteGenre(id)
+    res.redirect('/management')
+}
+
+//fucntion to give data to form on edit page
+async function editGame(req, res) {   
+    const id = req.params.id
+    const { gameData, devData, genreData } = await db.getGameRow(id)
+    const genreInfo = await db.getGenreInfo()
+    const devInfo = await db.getDevInfo()
+
+    res.render('editGame',{
+        gameData: gameData.rows[0], 
+        genreData: genreData.rows[0], 
+        devData: devData.rows[0], 
+        devInfo: devInfo, 
+        genreInfo: genreInfo
+    })
+}
+
+//function to update the entry in game table
+async function updateGame(req, res) {
+    const id = req.params.id
+    const data = req.body
+    await db.updateGameEntry(id,data)
     res.redirect('/management')
 }
 //function to give data to form on edit page
@@ -111,7 +135,9 @@ module.exports = {
     getAllItems,
     getByCategories,
     editItems,
-    deleteEntry,
+    editGame,
+    updateGame,
+    deleteGameEntry,
     editDev,
     updateDev,
     deleteDevEntry,

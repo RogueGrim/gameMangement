@@ -3,11 +3,14 @@ const pool = require('./pool')
 //fucntion to get all entries from database
 async function getAllEntries() {
     const SQL = `
-        select id, data.game_id, data.dev_id, game_name, dev_name, genre.genre, genre_id from data 
-        join game_info on data.game_id = game_info.game_id 
-        join dev_info on data.dev_id = dev_info.dev_id
-        join genre_info on data.game_id = genre_info.game_id
-        join genre on genre_info.genre_id = genre.genre_id;
+        SELECT id, data.game_id, data.dev_id, game_name, dev_name, 
+        STRING_AGG(genre.genre, ', ') AS genres,
+        STRING_AGG(genre.genre_id, ', ') AS genres_id FROM data 
+        JOIN game_info ON data.game_id = game_info.game_id 
+        JOIN dev_info ON data.dev_id = dev_info.dev_id
+        JOIN genre_info ON data.game_id = genre_info.game_id
+        JOIN genre ON genre_info.genre_id = genre.genre_id
+        GROUP BY id, data.game_id, data.dev_id, game_name, dev_name;
     `
     const { rows } = await pool.query(SQL)
     return rows
@@ -32,18 +35,45 @@ async function getGenreInfo() {
     
 }
 
-//function to get a specific row
+//function to get all details for a game
 async function getRow(id) {
     const SQL = `
-        SELECT id, game_name, data.game_id, genre, dev_name, data.dev_id FROM data
+        SELECT id, game_name, data.game_id, dev_name, data.dev_id, 
+        ARRAY_AGG(genre.genre) as genres,
+        ARRAY_AGG(genre.genre_id) as genres_id FROM data
         JOIN game_info ON data.game_id = game_info.game_id
         JOIN dev_info ON data.dev_id = dev_info.dev_id
         JOIN genre_info ON data.game_id = genre_info.game_id
         JOIN genre ON genre_info.genre_id = genre.genre_id
-        WHERE id = $1;
+        WHERE data.game_id = $1
+        GROUP BY id, data.game_id, data.dev_id, game_name, dev_name;
     `
     const { rows } = await pool.query(SQL,[id])
     return rows
+}
+
+async function getGameRow(id) {
+    const gameInfo = `
+        SELECT * FROM game_info
+        WHERE game_id = $1;
+    `
+    const devInfo = `
+        SELECT dev_info.dev_id, dev_name FROM dev_info
+        JOIN data on dev_info.dev_id = data.dev_id
+        WHERE game_id = $1;
+    `
+    const genreInfo = `
+        SELECT ARRAY_AGG(genre.genre_id) AS genres_id , ARRAY_AGG(genre.genre) AS genres FROM genre_info
+        JOIN genre ON genre_info.genre_id = genre.genre_id
+        WHERE game_id = $1
+        GROUP BY genre.genre_id, genre.genre;
+    `
+    const gameData = await pool.query(gameInfo,[id])
+    const devData = await pool.query(devInfo,[id])
+    const genreData = await pool.query(genreInfo,[id])
+    
+
+    return { gameData, devData, genreData }
 }
 
 //function to get details from dev_info table
@@ -88,14 +118,31 @@ async function getDevCount() {
     return rows
 }
 
-//function to delete a row from the database by using id from query
-async function deleteRow(id) {
-    const { rows }  = await pool.query(`SELECT game_id from data WHERE id = $1`,[id])
-    const gameID = rows[0].game_id.toUpperCase()
+//function to delete a game and its relations
+async function deleteGame(id) {
 
-    await pool.query(`DELETE FROM data WHERE id = $1;`,[id])
-    await pool.query(`DELETE FROM game_info WHERE game_id = $1;`,[gameID])
-    console.log('Deleted')
+    const delDevRel = `
+        DELETE FROM data
+        WHERE game_id = $1;
+    `
+    const delGenreRel = `
+        DELETE FROM genre_info
+        WHERE game_id = $1;
+    `
+
+    const delGame = `
+        DELETE FROM game_info
+        WHERE game_id = $1;
+    `
+
+    await pool.query(delDevRel,[id])
+    console.log('Deleted Dev Relation')
+
+    await pool.query(delGenreRel,[id])
+    console.log('Deleted Genre Ralation')
+
+    await pool.query(delGame,[id])
+    console.log('Deleted Game Entry')
 }
 
 //function to delete a row from dev_info and its relation in data table
@@ -132,6 +179,45 @@ async function deleteGenre(id) {
 
     await pool.query(deleteGenre,[id])
     console.log('Genre Deleted')
+}
+
+//function to update game entry, dev relation and genre relaion
+async function updateGameEntry(id,data) {
+
+    const { game_name, genres, dev_id} = data
+    const genreList = Array.isArray(genres) ? genres : genres ? [genres] : []
+
+    const DeleteGenre = `
+        DELETE FROM genre_info
+        WHERE game_id = $1;
+    `
+    const insertGenre = `
+        INSERT INTO genre_info(game_id,genre_id)
+        ($1, $2);
+    `
+
+    const updateDev = `
+        UPDATE data
+        SET dev_id = $1
+        WHERE game_id = $2;
+    `
+
+    const updateGame = `
+        UPDATE game_info
+        SET game_name =$1
+        WHERE game_id = $2;
+    `
+    await pool.query(deleteGenre)
+    console.log('Genre Relation Deleted')
+
+    for(const genreID of genreList ){
+        await pool.query(insertGenre,[id,genreID])
+    }
+    await pool.query(updateDev,[dev_id,id])
+    console.log('Developer Table Updated')
+
+    await pool.query(updateGame,[game_name,id])
+    console.log('Game Table Updated')
 }
 
 //function to update Dev entry in dev_info table
@@ -238,16 +324,17 @@ module.exports = {
     getGameInfo,
     getGenreInfo,
     getDevInfo,
-    getRow,
+    getGameRow,
     getGenreCount,
     getDevCount,
     getDevRow,
     getGenreRow,
-    deleteRow,
+    deleteGame,
     deleteDev,
     deleteGenre,
     updateDevEntry,
     updateGenreEntry,
+    updateGameEntry,
     addNewDev,
     addNewGenre,
     getGenreEntry,

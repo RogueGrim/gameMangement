@@ -15,6 +15,10 @@ router.get('/management/editGenre/:id',Controller.editGenre)
 router.post('/management/editGenre/:id',Controller.updateGenre)
 router.get('/management/deleteGenre/:id',Controller.deleteGenreEntry)
 
+router.get('/management/editGame/:id', Controller.editGame)
+router.post('/management/editGame/:id', Controller.updateGame)
+router.get('/management/deleteGame/:id', Controller.deleteGameEntry)
+
 router.get('/management/addGame', Controller.addGame)
 router.post('/management/addGame/:id', Controller.handleGameData)
 
