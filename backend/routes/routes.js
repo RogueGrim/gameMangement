@@ -7,6 +7,9 @@ router.get('/', Controller.getAllItems)
 router.get('/categories', Controller.getByCategories)
 router.get('/management', Controller.editItems)
 
+router.get('/management/deleteDev/:id/confirmDelete', Controller.confirmDelete)
+router.get('/management/deleteGenre/:if/confirmDelete', Controller.confirmDelete)
+
 router.get('/management/editDev/:id', Controller.editDev)
 router.post('/management/editDev/:id', Controller.updateDev)
 router.get('/management/deleteDev/:id', Controller.deleteDevEntry)

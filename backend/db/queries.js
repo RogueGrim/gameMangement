@@ -63,10 +63,9 @@ async function getGameRow(id) {
         WHERE game_id = $1;
     `
     const genreInfo = `
-        SELECT ARRAY_AGG(genre.genre_id) AS genres_id , ARRAY_AGG(genre.genre) AS genres FROM genre_info
+        SELECT ARRAY_AGG(genre_info.genre_id) AS genres_id FROM genre_info
         JOIN genre ON genre_info.genre_id = genre.genre_id
-        WHERE game_id = $1
-        GROUP BY genre.genre_id, genre.genre;
+        WHERE game_id = $1;
     `
     const gameData = await pool.query(gameInfo,[id])
     const devData = await pool.query(devInfo,[id])
@@ -99,7 +98,8 @@ async function getGenreRow(id) {
 //function to get the genre and count of each game in that genre
 async function getGenreCount() {
     const SQL = `
-        SELECT genre, COUNT(genre) as count from genre
+        SELECT genre, COUNT(genre_info.genre_id) FROM genre_info 
+        JOIN genre ON genre_info.genre_id = genre.genre_id 
         GROUP BY genre;
     `    
     const { rows } = await pool.query(SQL)
@@ -146,7 +146,7 @@ async function deleteGame(id) {
 }
 
 //function to delete a row from dev_info and its relation in data table
-async function deleteDev(id) {
+async function deleteDev(id, force) {
     const deleteDevRelation = `
         DELETE FROM data
         WHERE dev_id = $1; 
@@ -156,16 +156,23 @@ async function deleteDev(id) {
         DELETE FROM dev_info
         WHERE dev_id = $1;
     `
+    //force delete relation
+    if(force){
+        await pool.query(deleteDevRelation,[id])
+        console.log('Relation Deleted')
+    }
 
-    await pool.query(deleteDevRelation,[id])
-    console.log('Relation Deleted')
-
-    await pool.query(deleteDev,[id])
-    console.log('Dev Deleted')
+    try{
+        await pool.query(deleteDev,[id])
+        console.log('Dev Deleted')    
+    }catch (err) {
+        throw err
+    }
+    
 }
 
 //function to delete genre and its relation in genre_info
-async function deleteGenre(id) {
+async function deleteGenre(id, force) {
     const deleteRelation = `
         DELETE FROM genre_info
         WHERE genre_id = $1;
@@ -174,11 +181,18 @@ async function deleteGenre(id) {
         DELETE FROM genre
         WHERE genre_id = $1;
     `
-    await pool.query(deleteRelation,[id])
-    console.log('Relation Deleted')
+    //force delete relation
+    if(force){
+        await pool.query(deleteRelation,[id])
+        console.log('Relation Deleted')
+    }
 
-    await pool.query(deleteGenre,[id])
-    console.log('Genre Deleted')
+    try{
+        await pool.query(deleteGenre,[id])
+        console.log('Genre Deleted')
+    }catch (err){
+        throw err
+    }
 }
 
 //function to update game entry, dev relation and genre relaion

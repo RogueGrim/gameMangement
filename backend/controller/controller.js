@@ -29,21 +29,44 @@ async function deleteGameEntry(req, res) {
 //function to delete dev entry
 async function deleteDevEntry(req, res) {
     const id = req.params.id
-    await db.deleteDev(id)
-    res.redirect('/management')
+    try{
+        await db.deleteDev(id,false)
+        res.redirect('/management')
+    }catch (err){
+        console.log('Error: ', err.message)
+        res.redirect(`/management/deleteDev/${id}/confirmDelete?error=${encodeURIComponent(err.message)}`)
+    }
+    
+}
+//funvtion to force delete dev entry
+async function forceDeleteDev(req, res) {
+    const id = req.params.id
+    await db.deleteDev(id, true)
+}
+
+async function confirmDelete(req, res) {
+    const error = req.query.error
+    res.render('./layouts/confirmDel',{errorMessage: error})
 }
 
 //function to delete genre entry
 async function deleteGenreEntry(req, res) {
     const id = req.params.id
-    await db.deleteGenre(id)
-    res.redirect('/management')
+
+    try{
+        await db.deleteGenre(id, false)
+        res.redirect('/management')
+    }catch (err){
+        console.log('Error: ', err.message)
+        res.redirect(`/management/deleteGenre/${id}/confirmDelete?error=${encodeURIComponent(err.message)}`)
+    }
 }
 
 //fucntion to give data to form on edit page
 async function editGame(req, res) {   
     const id = req.params.id
     const { gameData, devData, genreData } = await db.getGameRow(id)
+    console.log(genreData.rows[0])
     const genreInfo = await db.getGenreInfo()
     const devInfo = await db.getDevInfo()
 
@@ -149,5 +172,6 @@ module.exports = {
     addGenre,
     handleDevData,
     handleGenreData,
-    handleGameData
+    handleGameData,
+    confirmDelete
 }

@@ -22,7 +22,7 @@
                         type="checkbox" 
                         name="genres" 
                         value="<%= item.genre_id %>"
-                        <%= genreData.genres_id.includes(item.genre_id) ? "checked" : "" %>
+                        <%= genreData?.genres_id.includes(item.genre_id) ? "checked" : "" %>
                     >
                     <%= item.genre %>
                 </label>
@@ -33,7 +33,7 @@
             <% devInfo.forEach(item => { %>
                 <option 
                     value="<%= item.dev_id %>"
-                    <%= devData.dev_id == item.dev_id ? "selected" : "" %>
+                    <%= devData?.dev_id == item.dev_id ? "selected" : "" %>
                 > <%= item.dev_name %> </option>
             <% }) %>
         </select>
