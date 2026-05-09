@@ -1,6 +1,32 @@
-<div>
+<div id="popUp" class="hidden" >
     <h1>Confirm Delete? </h1>
-    <p><%= errorMessage %></p>
-    <button>Yes</button>
-    <button>No</button>
+    <p id="popUp_message"></p>
+
+    <form id="popUp_form" method="post">
+        <button type="submit" >Yes</button>
+    </form>
+
+    <button onclick="closePopup()">No</button>
 </div>
+
+<script>
+    function openPopup({message, action}){
+        document
+        .getElementById("popUp")
+        .classList.remove("hidden")
+
+        document
+        .getElementById("popUp_message")
+        .innerText = message
+
+        document
+        .getElementById('popUp_form')
+        .action = action
+    }
+
+    function closePopup(){
+        document
+        .getElementById("popUp")
+        .classList.add("hidden")
+    }
+</script>

@@ -19,6 +19,7 @@ async function editItems(req, res) {
     const genre_Data = await db.getGenreInfo()
     res.render('manageInventory',{gameData: game_Data, devData: dev_Data, genreData: genre_Data })
 }
+
 //function to delete a game entry from the inventory page
 async function deleteGameEntry(req, res) {
     const id = req.params.id
@@ -27,42 +28,42 @@ async function deleteGameEntry(req, res) {
 }
 
 //function to delete dev entry
-async function deleteDevEntry(req, res) {
+async function deleteDevEntry(req, res, next) {
     const id = req.params.id
     try{
         await db.deleteDev(id,false)
         res.redirect('/management')
     }catch (err){
-        console.log('Error: ', err.message)
-        res.redirect(`/management/deleteDev/${id}/confirmDelete?error=${encodeURIComponent(err.message)}`)
+        next(err)
     }
     
 }
-//funvtion to force delete dev entry
+
+//function to force delete dev entry
 async function forceDeleteDev(req, res) {
     const id = req.params.id
     await db.deleteDev(id, true)
 }
 
-async function confirmDelete(req, res) {
-    const error = req.query.error
-    res.render('./layouts/confirmDel',{errorMessage: error})
-}
-
 //function to delete genre entry
-async function deleteGenreEntry(req, res) {
+async function deleteGenreEntry(req, res, next) {
     const id = req.params.id
 
     try{
         await db.deleteGenre(id, false)
         res.redirect('/management')
     }catch (err){
-        console.log('Error: ', err.message)
-        res.redirect(`/management/deleteGenre/${id}/confirmDelete?error=${encodeURIComponent(err.message)}`)
+        next(err)
     }
 }
 
-//fucntion to give data to form on edit page
+//function to force delete genre entry
+async function forceDeleteGenre(req, res) {
+    const id = req.params.id
+    await db.deleteGenre(id, true)
+}
+
+//function to give data to form on edit page
 async function editGame(req, res) {   
     const id = req.params.id
     const { gameData, devData, genreData } = await db.getGameRow(id)
@@ -100,6 +101,7 @@ async function updateGame(req, res) {
     await db.updateDevEntry(id,data)
     res.redirect('/management')
 }
+
 //function to get details from db and pass it to edit page
 async function editGenre(req, res) {
     const id = req.params.id
@@ -132,16 +134,19 @@ async function handleGameData(req, res) {
     await db.addNewGame(gameId,data)
     res.redirect('/management')
 }
+
 //function to render a new form page for Developer Information
 function addDev(req, res) {
     res.render('addDevForm')
 }
+
 //function to pass data to add new developer
 async function handleDevData(req, res) {
     const name = req.body.dev_name
     await db.addNewDev(name)
     res.redirect('/management')
 }
+
 //function to render a new form page and post data for new genre
 function addGenre(req, res) {
     res.render('addGenreForm')
@@ -152,6 +157,12 @@ async function handleGenreData(req, res) {
     const genre = req.body.genre
     await db.addNewGenre(genre)
     res.redirect('/management')
+}
+
+//function to handle all errors
+function handleError(err, req, res, next) {
+    res.render('ErrorPage',{errorMessage: err.message})
+    res.status(500)
 }
 
 module.exports = { 
@@ -173,5 +184,5 @@ module.exports = {
     handleDevData,
     handleGenreData,
     handleGameData,
-    confirmDelete
+    handleError
 }

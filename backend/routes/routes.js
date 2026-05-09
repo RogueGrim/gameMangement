@@ -7,20 +7,17 @@ router.get('/', Controller.getAllItems)
 router.get('/categories', Controller.getByCategories)
 router.get('/management', Controller.editItems)
 
-router.get('/management/deleteDev/:id/confirmDelete', Controller.confirmDelete)
-router.get('/management/deleteGenre/:if/confirmDelete', Controller.confirmDelete)
-
 router.get('/management/editDev/:id', Controller.editDev)
 router.post('/management/editDev/:id', Controller.updateDev)
-router.get('/management/deleteDev/:id', Controller.deleteDevEntry)
+router.post('/management/deleteDev/:id', Controller.deleteDevEntry)
 
 router.get('/management/editGenre/:id',Controller.editGenre)
 router.post('/management/editGenre/:id',Controller.updateGenre)
-router.get('/management/deleteGenre/:id',Controller.deleteGenreEntry)
+router.post('/management/deleteGenre/:id',Controller.deleteGenreEntry)
 
 router.get('/management/editGame/:id', Controller.editGame)
 router.post('/management/editGame/:id', Controller.updateGame)
-router.get('/management/deleteGame/:id', Controller.deleteGameEntry)
+router.post('/management/deleteGame/:id', Controller.deleteGameEntry)
 
 router.get('/management/addGame', Controller.addGame)
 router.post('/management/addGame/:id', Controller.handleGameData)
@@ -30,6 +27,8 @@ router.post('/management/addDev', Controller.handleDevData)
 
 router.get('/management/addGenre/:id', Controller.addGenre)
 router.post('/management/addGenre/:id', Controller.handleGenreData)
+
+router.use(Controller.handleError)
 
 
 

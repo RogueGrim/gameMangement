@@ -18,10 +18,10 @@
                 <form action="/management/editGame/<%= item.game_id %>" method="get">
                     <button>Edit</button>
                 </form>
-
-                <form action="/management/deleteGame/<%= item.game_id %>" method="get">
-                    <button>delete</button>
-                </form>
+                <button onclick="openPopup({
+                    message: 'Deleting This Game may Remove Dependencies,',
+                    action: '/management/deleteGame/<%= item.game_id %>'
+                })">Delete</button>
             </div>
         <% }) %>
         
@@ -46,9 +46,12 @@
                     <button>Edit</button>
                 </form>
 
-                <form action="/management/deleteDev/<%= item.dev_id %>" method="get">
-                    <button>Delete</button>
-                </form>
+               
+                <button onclick="openPopup({
+                    message: 'Deleting this developer may remove related games.',
+                    action: '/management/deleteDev/<%= item.game_id %>'
+                })" >Delete</button>
+               
             </div>
         <% }) %>
     </div>
@@ -71,9 +74,11 @@
                     <button>Edit</button>
                 </form>
 
-                <form action="/management/deleteGenre/<%= item.genre_id %>" method="get">
-                    <button>Delete</button>
-                </form>
+                <button onclick="openPopup({
+                    message: 'This genre is linked to games.',
+                    action: '/management/deleteGenre/<%= item.genre_id %>'
+                })">Delete</button>
+
 
             </div>
 
