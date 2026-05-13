@@ -1,0 +1,90 @@
+<%# ejs module to render cards in Management  %>
+<link rel="stylesheet" href="/editTable.css">
+<section class="editInventory">
+    <table>
+        <h1>Game Information</h1>
+        <thead>
+            <tr>
+                <th>Game ID</th>
+                <th>Game Name</th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <% gameData.forEach(item =>{ %>
+                <tr>
+                    <td><%= item.game_id %></td>
+                    <td><%= item.game_name %></td>
+                    <td class="buttons">
+                        <form action="/management/editGame/<%= item.game_id %>" method="get">
+                        <button>Edit</button>
+                        </form>
+                        <button onclick="openPopup({
+                            message: 'Deleting This Game may Remove Dependencies,',
+                            action: '/management/deleteGame/<%= item.game_id %>'
+                        })">Delete</button>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+
+    <table>
+        <h1>Developer Information</h1>
+        <thead>
+            <tr>
+                <th>Developer ID</th>
+                <th>Developer Name</th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <% devData.forEach(item =>{ %>
+                <tr>
+                    <td><%= item.dev_id %></td>
+                    <td><%= item.dev_name %></td>
+                    <td class="buttons">
+                        <form action="/management/editDev/<%= item.dev_id %>" method="get">
+                        <button>Edit</button>
+                        </form>
+                        <button onclick="openPopup({
+                            message: 'This developer might be associated to some Games,',
+                            action: '/management/deleteDev/<%= item.dev_id %>'
+                        })">Delete</button>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+
+    <table>
+        <h1>Genre Information</h1>
+        <thead>
+            <tr>
+                <th>Genre ID</th>
+                <th>Genre</th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <% genreData.forEach(item =>{ %>
+                <tr>
+                    <td><%= item.genre_id %></td>
+                    <td><%= item.genre %></td>
+                    <td class="buttons">
+                        <form action="/management/editGame/<%= item.genre_id %>" method="get">
+                        <button>Edit</button>
+                        </form>
+                        <button onclick="openPopup({
+                            message: 'This genre may be associated with some Games,',
+                            action: '/management/deleteGenre/<%= item.genre_id %>'
+                        })">Delete</button>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</section>

@@ -1,0 +1,24 @@
+.editInventory{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px 100px 0px 100px;
+    gap: 10px;
+}
+
+th, td{
+    padding: 20px 50px 20px 50px;
+    border: 1px solid black;
+}
+
+.buttons{
+    display: flex;
+    gap: 5px;
+}
+
+.buttons button{
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: none;
+}

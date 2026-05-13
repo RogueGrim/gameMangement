@@ -3,17 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/categories.css">
     <title>Categories</title>
 </head>
 <body>
     <%# component for showing categories page %>
     <%- include('navbar',{title: 'Game Management App'}) %>
     <section>
-        <% data.forEach(item=>{ %>
-            <h1><%= item.genre %></h1>
-            <p><%= item.count %></p>
-        <% }) %>
-
+        <label for="sortBy">Sort By:</label>
+        <select id="sortValue" name="sortBy">
+            <option value="dev">Developers</option>
+            <option value="genre">Genre</option>
+        </select>
+        <div class="container">
+            
+            <%- include('./layouts/sortByDev',{sortByDev: sortByDev}) %>
+            <%- include('./layouts/sortByGenre',{sortByGenre: sortByGenre}) %>
+        </div>
     </section>
     
 </body>

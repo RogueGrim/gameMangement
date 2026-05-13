@@ -118,6 +118,31 @@ async function getDevCount() {
     return rows
 }
 
+//function to get all games by all the genres
+async function getGameByGenre() {
+    const SQL = `
+        SELECT genre, ARRAY_AGG(game_name) AS game_names FROM genre_info 
+        JOIN genre ON genre.genre_id = genre_info.genre_id 
+        JOIN game_info ON genre_info.game_id = game_info.game_id
+        GROUP BY genre;
+    `
+
+    const { rows } = await pool.query(SQL)
+    return rows
+}
+
+//function to get all games by all the developers
+async function getGameByDev() {
+    const SQL = `
+        SELECT dev_name, ARRAY_AGG(game_name) AS game_names FROM dev_info 
+        JOIN data ON data.dev_id = dev_info.dev_id 
+        JOIN game_info ON data.game_id = game_info.game_id
+        GROUP BY dev_name;
+    `
+    const { rows } = await pool.query(SQL)
+    return rows
+}
+
 //function to delete a game and its relations
 async function deleteGame(id) {
 
@@ -146,7 +171,7 @@ async function deleteGame(id) {
 }
 
 //function to delete a row from dev_info and its relation in data table
-async function deleteDev(id, force) {
+async function deleteDev(id) {
     const deleteDevRelation = `
         DELETE FROM data
         WHERE dev_id = $1; 
@@ -156,15 +181,14 @@ async function deleteDev(id, force) {
         DELETE FROM dev_info
         WHERE dev_id = $1;
     `
-    //force delete relation
-    if(force){
+    
+    try{
         await pool.query(deleteDevRelation,[id])
         console.log('Relation Deleted')
-    }
 
-    try{
         await pool.query(deleteDev,[id])
-        console.log('Dev Deleted')    
+        console.log('Dev Deleted')  
+        
     }catch (err) {
         throw err
     }
@@ -181,13 +205,10 @@ async function deleteGenre(id, force) {
         DELETE FROM genre
         WHERE genre_id = $1;
     `
-    //force delete relation
-    if(force){
+    try{
         await pool.query(deleteRelation,[id])
         console.log('Relation Deleted')
-    }
-
-    try{
+        
         await pool.query(deleteGenre,[id])
         console.log('Genre Deleted')
     }catch (err){
@@ -340,7 +361,9 @@ module.exports = {
     getDevInfo,
     getGameRow,
     getGenreCount,
+    getGameByGenre,
     getDevCount,
+    getGameByDev,
     getDevRow,
     getGenreRow,
     deleteGame,

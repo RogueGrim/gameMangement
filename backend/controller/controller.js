@@ -8,8 +8,10 @@ async function getAllItems(req, res) {
 
 //function to render the categoies page and provide data to categories
 async function getByCategories(req, res) {
-    const data = await db.getGenreCount()
-    res.render('categories',{data: data})
+    const countData = await db.getGenreCount()
+    const sortByGenre = await db.getGameByGenre()
+    const sortByDev = await db.getGameByDev()
+    res.render('categories',{sortByDev: sortByDev, sortByGenre: sortByGenre})
 }
 
 //function to render the items on manage inventory page
@@ -39,12 +41,6 @@ async function deleteDevEntry(req, res, next) {
     
 }
 
-//function to force delete dev entry
-async function forceDeleteDev(req, res) {
-    const id = req.params.id
-    await db.deleteDev(id, true)
-}
-
 //function to delete genre entry
 async function deleteGenreEntry(req, res, next) {
     const id = req.params.id
@@ -57,17 +53,11 @@ async function deleteGenreEntry(req, res, next) {
     }
 }
 
-//function to force delete genre entry
-async function forceDeleteGenre(req, res) {
-    const id = req.params.id
-    await db.deleteGenre(id, true)
-}
 
 //function to give data to form on edit page
 async function editGame(req, res) {   
     const id = req.params.id
     const { gameData, devData, genreData } = await db.getGameRow(id)
-    console.log(genreData.rows[0])
     const genreInfo = await db.getGenreInfo()
     const devInfo = await db.getDevInfo()
 

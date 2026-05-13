@@ -1,0 +1,24 @@
+<section>
+    <table>
+        <thead>
+            <tr>
+                <th>Genre</th>
+                <th>Game(s)</th>
+            </tr>
+            
+        </thead>
+        <tbody>
+            <% sortByGenre.forEach(item =>{ %> 
+                <tr>
+                    <td><%= item.genre %></td>
+                    <td>
+                        <% for(item of item.game_names){ %>
+                            <%= item %>,
+                        <% } %>
+                    </td>
+                </tr>
+            <% }) %>  
+        </tbody>
+    </table>
+    
+</section>

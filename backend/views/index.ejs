@@ -8,13 +8,7 @@
 </head>
 <body>
     <%- include('navbar',{title: 'Game Management App'}) %>
-    <section>
-        <div class="title">
-            <h1>Game</h1>
-            <h1>Developer</h1>
-            <h1>Genre</h1>
-        </div>
-        <%- include('./layouts/card',{data:data}) %>
-    </section>
+
+    <%- include('./layouts/indexTable',{data:data}) %>
 </body>
 </html>

@@ -1,0 +1,22 @@
+<%# ejs module to render Table in index %>
+<link rel="stylesheet" href="/indexTable.css">
+<table class="indexTable">
+    <thead>
+        <tr>
+            <th>Game Name</th>
+            <th>Developer Name</th>
+            <th>Genre(s)</th>
+        </tr>
+    </thead>
+    
+    <tbody>
+        <% data.forEach(item =>{ %>
+            <tr>
+                <td><%= item.game_name %></td>
+                <td><%= item.dev_name %></td>
+                <td><%= item.genres %></td>
+            </tr>
+        <% }) %>
+    </tbody>
+</table>
+

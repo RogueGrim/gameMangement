@@ -1,11 +1,22 @@
-.title{
-    display: flex;
-}
-
-.card{
-    display: flex;
+*{
+    margin: 0;
+    padding: 0;
 }
 
 .hidden{
     display: none;
+}
+
+.inventoryButtons{
+    padding: 50px 100px 0px 100px;
+    display: flex;
+    gap: 10px;
+    justify-self: end;
+}
+
+.inventoryButtons button{
+    padding: 10px;
+    background-color: none;
+    border: none;
+    border-radius: 5px;
 }
