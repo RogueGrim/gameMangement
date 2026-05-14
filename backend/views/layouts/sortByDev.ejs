@@ -1,24 +1,21 @@
-<section>
-    <table>
-        <thead>
+<table>
+    <thead>
+        <tr>
+            <th>Developer</th>
+            <th>Game(s)</th>
+        </tr>
+        
+    </thead>
+    <tbody>
+        <% sortByDev.forEach(item =>{ %> 
             <tr>
-                <th>Developer</th>
-                <th>Game(s)</th>
+                <td><%= item.dev_name %></td>
+                <td>
+                    <% for(item of item.game_names){ %>
+                        <%= item %>,
+                    <% } %>
+                </td>
             </tr>
-            
-        </thead>
-        <tbody>
-            <% sortByDev.forEach(item =>{ %> 
-                <tr>
-                    <td><%= item.dev_name %></td>
-                    <td>
-                        <% for(item of item.game_names){ %>
-                            <%= item %>,
-                        <% } %>
-                    </td>
-                </tr>
-            <% }) %>  
-        </tbody>
-    </table>
-    
-</section>
+        <% }) %>  
+    </tbody>
+</table>

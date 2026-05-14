@@ -9,17 +9,16 @@
 <body>
     <%# component for showing categories page %>
     <%- include('navbar',{title: 'Game Management App'}) %>
-    <section>
-        <label for="sortBy">Sort By:</label>
-        <select id="sortValue" name="sortBy">
-            <option value="dev">Developers</option>
-            <option value="genre">Genre</option>
-        </select>
-        <div class="container">
-            
-            <%- include('./layouts/sortByDev',{sortByDev: sortByDev}) %>
-            <%- include('./layouts/sortByGenre',{sortByGenre: sortByGenre}) %>
+    <section class="container">
+        <div>
+            <label for="sortBy">Sort By:</label>
+            <select id="sortValue" name="sortBy">
+                <option value="dev">Developers</option>
+                <option value="genre">Genre</option>
+            </select>
         </div>
+        <%- include('./layouts/sortByDev',{sortByDev: sortByDev}) %>
+        <%- include('./layouts/sortByGenre',{sortByGenre: sortByGenre}) %>
     </section>
     
 </body>
