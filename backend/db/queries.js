@@ -4,8 +4,8 @@ const pool = require('./pool')
 async function getAllEntries() {
     const SQL = `
         SELECT id, data.game_id, data.dev_id, game_name, dev_name, 
-        STRING_AGG(genre.genre, ', ') AS genres,
-        STRING_AGG(genre.genre_id, ', ') AS genres_id FROM data 
+        ARRAY_AGG(genre.genre) AS genres,
+        ARRAY_AGG(genre.genre_id) AS genres_id FROM data 
         JOIN game_info ON data.game_id = game_info.game_id 
         JOIN dev_info ON data.dev_id = dev_info.dev_id
         JOIN genre_info ON data.game_id = genre_info.game_id

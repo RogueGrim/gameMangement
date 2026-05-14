@@ -1,0 +1,18 @@
+<%# ejs module to render Table in index %>
+<link rel="stylesheet" href="/indexCard.css">
+<div class="cardContainer">
+    <% data.forEach(item => { %>
+        <div class="card">
+            <img src="./images/generic.jpg" alt="Game Image" class="gameImage">
+            <div class="information">
+                <h1><%= item.game_name %></h1>
+                <p><%= item.dev_name %></p>
+                <span>
+                    <% item.genres.forEach(item => { %>
+                        <p><%=item %></p>
+                    <% }) %>
+                </span>
+            </div>
+        </div>
+    <% }) %>
+</div>

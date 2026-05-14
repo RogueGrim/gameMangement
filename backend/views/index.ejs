@@ -6,9 +6,11 @@
     <title><%= title %> </title>
     <link rel="stylesheet" href="/styles.css"> 
 </head>
-<body>
+<body> 
     <%- include('navbar',{title: 'Game Management App'}) %>
-
-    <%- include('./layouts/indexTable',{data:data}) %>
+    <div>
+        <h1>Inventory Overview</h1>
+    </div>
+    <%- include('./layouts/indexCard',{data:data}) %>
 </body>
 </html>
