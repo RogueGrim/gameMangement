@@ -1,21 +1,15 @@
-<table>
-    <thead>
-        <tr>
-            <th>Developer</th>
-            <th>Game(s)</th>
-        </tr>
-        
-    </thead>
-    <tbody>
-        <% sortByDev.forEach(item =>{ %> 
-            <tr>
-                <td><%= item.dev_name %></td>
-                <td>
-                    <% for(item of item.game_names){ %>
-                        <%= item %>,
-                    <% } %>
-                </td>
-            </tr>
-        <% }) %>  
-    </tbody>
-</table>
+<div class="cardContainer" id="devData">
+    <% devData.forEach(item => { %>
+        <div class="entry">
+            <h1><%= item.dev_name %></h1>
+            <div class="card">
+                <% item.game_names.forEach(entry =>{ %>
+                    <div class="subCard">
+                        <img src="./images/generic.jpg" alt="" class="gameImage">
+                        <p class="information"><%= entry %></p>
+                    </div>
+                <% }) %>
+            </div>
+        </div>
+    <% }) %>
+</div>

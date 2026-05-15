@@ -4,21 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/categories.css">
+    <script>
+        //function for selecting type of sort
+        function triggerCategory(){
+            const selector = document.getElementById('sortValue')
+            const dev = document.getElementById('devData')
+            const genre = document.getElementById('genreData')
+
+            if(selector.value == 'dev'){
+                genre.classList.add('hidden')
+                dev.classList.remove('hidden')
+            }
+
+            if(selector.value == 'genre'){
+                dev.classList.add('hidden')
+                genre.classList.remove('hidden')
+            }
+        }
+
+    </script>
     <title>Categories</title>
 </head>
 <body>
     <%# component for showing categories page %>
     <%- include('navbar',{title: 'Game Management App'}) %>
     <section class="container">
-        <div>
+        <div class="selector">
             <label for="sortBy">Sort By:</label>
-            <select id="sortValue" name="sortBy">
-                <option value="dev">Developers</option>
+            <select id="sortValue" name="sortBy" onchange="triggerCategory()">
+                <option value="dev" selected>Developers</option>
                 <option value="genre">Genre</option>
             </select>
         </div>
-        <%- include('./layouts/sortByDev',{sortByDev: sortByDev}) %>
-        <%- include('./layouts/sortByGenre',{sortByGenre: sortByGenre}) %>
+        <%- include('./layouts/sortByDev',{devData: sortByDev}) %>
+        <%- include('./layouts/sortByGenre',{genreData: sortByGenre}) %>
     </section>
     
 </body>
