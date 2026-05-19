@@ -98,7 +98,7 @@ async function getGenreRow(id) {
 //function to get the genre and count of each game in that genre
 async function getGenreCount() {
     const SQL = `
-        SELECT genre, COUNT(genre_info.genre_id) FROM genre_info 
+        SELECT genre, COUNT(genre_info.genre_id) AS count FROM genre_info 
         JOIN genre ON genre_info.genre_id = genre.genre_id 
         GROUP BY genre;
     `    

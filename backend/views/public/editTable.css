@@ -1,14 +1,59 @@
 .editInventory{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 50px 100px 0px 100px;
-    gap: 10px;
+    margin: 50px 100px 0px 100px;
+    display:grid;
+    grid-template-columns:300px 300px 1fr;
+    gap:20px;
 }
 
-th, td{
-    padding: 20px 50px 20px 50px;
-    border: 1px solid black;
+.mainTable{
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    padding: 25px;
+    border-radius: 20px;
+    gap: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.8);
+    max-height: fit-content;
+}
+
+table{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead{
+    background:#f3f4f6;
+}
+
+th{
+    padding:18px;
+    text-align:left;
+    font-size:15px;
+    color:#374151;
+}
+
+td{
+    padding:18px;
+    border-top:1px solid #e5e7eb;
+}
+
+tbody tr{
+    transition:0.2s;
+}
+
+tbody tr:hover{
+    background:#f9fafb;
+}
+
+.genre, .dev{
+    display: flex;
+    flex-direction: column;
+    width:250px;
+    background:white;
+    border-radius:20px;
+    padding:20px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.08);
+    gap: 10px;
 }
 
 .buttons{
@@ -21,4 +66,16 @@ th, td{
     border: none;
     border-radius: 5px;
     background-color: none;
+}
+
+.inventoryButtons{
+    display: flex;
+    gap: 10px;
+}
+
+.inventoryButtons button{
+    padding: 10px;
+    background-color: none;
+    border: none;
+    border-radius: 5px;
 }
