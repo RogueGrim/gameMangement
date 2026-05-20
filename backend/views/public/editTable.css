@@ -56,26 +56,19 @@ tbody tr:hover{
     gap: 10px;
 }
 
-.buttons{
-    display: flex;
-    gap: 5px;
-}
-
-.buttons button{
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    background-color: none;
-}
-
 .inventoryButtons{
     display: flex;
     gap: 10px;
 }
 
-.inventoryButtons button{
+.inventoryButtons button, .editBtn{
     padding: 10px;
     background-color: none;
     border: none;
     border-radius: 5px;
+}
+
+button:hover{
+    background-color: #e5e7eb;
+    cursor: pointer;
 }

@@ -14,9 +14,9 @@
 }
 
 .cardContainer{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
 }
 
 .card{
@@ -43,10 +43,35 @@
 }
 
 .entry{
- background-color: rgb(224, 224, 224);
- padding: 20px;
+    background:white;
+    padding:25px;
+    border-radius:20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
 }
 
 .hidden{
     display: none;
+}
+
+.selector{
+    display: flex;
+    align-items: center;
+    min-width: 100px;
+    gap: 10px;
+}
+
+.selector label{
+    white-space: nowrap;
+}
+
+.selector select {
+  appearance: none;
+  width: 100%;
+  font-size: 1rem;
+  padding: 0.675em 6em 0.675em 1em;
+  background-color: #fff;
+  border: 1px solid #caced1;
+  border-radius: 0.25rem;
+  color: #000;
+  cursor: pointer;
 }
