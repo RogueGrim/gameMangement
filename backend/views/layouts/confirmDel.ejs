@@ -1,12 +1,13 @@
-<div id="popUp" class="hidden" >
+<div id="popUp" class="popUp hidden" >
     <h1>Confirm Delete? </h1>
     <p id="popUp_message"></p>
 
     <form id="popUp_form" method="post">
         <button type="submit" >Yes</button>
+        <button  type="button" onclick="closePopup()">No</button>
     </form>
 
-    <button onclick="closePopup()">No</button>
+    
 </div>
 
 <script>
