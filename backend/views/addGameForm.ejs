@@ -4,29 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Game</title>
+    <link rel="stylesheet" href="/addGame.css">
 </head>
 <body>
-    <form action="/management/addGame/<%= id %>" method="post">
-        <label for="game_name"> Game Name:</label>
-        <input type="text" name="game_name" required>
-        
-        
-        <div>
-            <% genre.forEach(item => { %>
-                <label>
-                    <input type="checkbox" name="genres" value="<%= item.genre_id %>">
-                    <%= item.genre %>
-                </label>
-            <% }) %>
-        </div>
+    <%- include('navbar',{title: 'Game Management App'}) %>
+    <div class="back">
+        <a href="/management"><button>Back</button></a>
+    </div>
+    <div class="container">
+        <form action="/management/addGame/<%= id %>" method="post">
+            <div class="nameField">
+                <label for="game_name"> Game Name:</label>
+                <input type="text" name="game_name" required>
+            </div>
+            
+            <div class="genreField">
+                <label for="genre">Genre: </label>
+                <% genre.forEach(item => { %>
+                    <label>
+                        <input type="checkbox" name="genres" value="<%= item.genre_id %>">
+                        <%= item.genre %>
+                    </label>
+                <% }) %>
+            </div>
+            <div class="selector">
+                <label for="dev_name">Developer: </label>
+                <select name="dev_id">
+                    <option value="--">--</option>
+                    <% dev.forEach(item => { %>
+                        <option value="<%= item.dev_id %>"> <%= item.dev_name %> </option>
+                    <% }) %>
+                </select>
+            </div>
+            
 
-        <select name="dev_id">
-            <% dev.forEach(item => { %>
-                <option value="<%= item.dev_id %>"> <%= item.dev_name %> </option>
-            <% }) %>
-        </select>
-
-        <button type="submit">Submit</button>
-    </form>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    
 </body>
 </html>

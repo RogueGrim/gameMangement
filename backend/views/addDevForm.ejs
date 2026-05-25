@@ -4,13 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Developer</title>
+    <link rel="stylesheet" href="/addDev.css">
 </head>
 <body>
-    <form action="/management/addDev" method="post">
-        <label for="dev_name">Developer Name:</label>
-        <input type="text" name="dev_name" required>
-        
-        <button type="submit">Submit</button>
-    </form>
+    <%- include('navbar',{title: 'Game Management App'}) %>
+    <div class="back">
+        <a href="/management"><button>Back</button></a>
+    </div>
+    <div class="container">
+        <form action="/management/addDev" method="post">
+            <label for="dev_name">Developer Name:</label>
+            <input type="text" name="dev_name" required>
+            
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    
 </body>
 </html>

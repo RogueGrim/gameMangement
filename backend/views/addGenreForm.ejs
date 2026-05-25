@@ -4,13 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add New Genre</title>
+    <link rel="stylesheet" href="/addGenre.css">
 </head>
 <body>
-    <form action="/management/addGenre" method="post">
-        <label for="genre">Genre:</label>
-        <input type="text" name="genre" required>
+    <%- include('navbar',{title: 'Game Management App'}) %>
+    <div class="back">
+        <a href="/management"><button>Back</button></a>
+    </div>
+    <div class="container">
+        <form action="/management/addGenre" method="post">
+            <label for="genre">Genre:</label>
+            <input type="text" name="genre" required>
 
-        <button type="submit"> Submit</button>
-    </form>
+            <button type="submit"> Submit</button>
+        </form>
+</div>
+    
 </body>
 </html>

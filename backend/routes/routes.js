@@ -25,7 +25,7 @@ router.post('/management/addGame/:id', Controller.handleGameData)
 router.get('/management/addDev', Controller.addDev)
 router.post('/management/addDev', Controller.handleDevData)
 
-router.get('/management/addGenre/:id', Controller.addGenre)
+router.get('/management/addGenre', Controller.addGenre)
 router.post('/management/addGenre/:id', Controller.handleGenreData)
 
 router.use(Controller.handleError)

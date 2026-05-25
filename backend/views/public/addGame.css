@@ -1,51 +1,34 @@
 *{
-    margin: 0;
     padding: 0;
+    margin: 0;
 }
 
 .container{
     position: relative;
+    margin: 50px;
     max-width: fit-content;
     justify-self: center;
     align-self: center;
-    padding: 50px;
-    margin-top: 50px;
+    padding: 20px;
     border-radius: 25px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.8);
-}
-
-.container > a > button{
-    position: absolute;
-    border-radius: 25px;
-    width: 50px;
-    height: 50px;
-    left: 5px;
-    top: 5px;
 }
 
 .container form{
     display: flex;
     flex-direction: column;
-    max-width: 500px;
-    justify-self: center;
     gap: 10px;
 }
 
 .nameField{
     display: flex;
     flex-direction: column;
-    gap: 10px;
-
+    gap: 5px;
 }
 
 .nameField input{
     width: 90%;
-    padding: 5px;
-}
-
-.genreField{
-    display: flex;
-    flex-direction: column;
+    padding: 10px;
 }
 
 .selector{
@@ -58,7 +41,7 @@
   appearance: none;
   width: 100%;
   font-size: 1rem;
-  padding: 0.675em 6em 0.675em 1em;
+  padding: 10px;
   background-color: #fff;
   border: 1px solid #caced1;
   border-radius: 0.25rem;
@@ -66,35 +49,33 @@
   cursor: pointer;
 }
 
+.genreField{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
 button{
     padding: 10px;
     background-color: none;
     border: none;
     border-radius: 5px;
-}
-
-button:hover{
-    background-color: #e5e7eb;
     cursor: pointer;
 }
 
-.popUp{
-    display: flex;
-    flex-direction: column;
-    align-items: center;    
+button:hover{
+    background-color: #ccc;
+}
+.back{
     position: absolute;
-    padding: 20px;
-    border-radius: 25px;
-    gap: 10px;
-    top:40%;
-    right:20%;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.8);
+    left: 38%;
+    top: 20%;
 }
 
-.hidden{
-    display: none;
-}
-
-#popUp button{
+.back button{
     width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
