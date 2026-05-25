@@ -4,17 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Genre</title>
+    <link rel="stylesheet" href="/editSecondary.css">
 </head>
 <body>
     <%- include('navbar',{title: 'Game Management App'}) %>
-    <form action="/management/editGenre/<%= item.genre_id %>" method="post">
-        <label for="genre_id">Genre ID:</label>
-        <input type="text" value="<%= item.genre_id %>" readonly>
+    <div class="back">
+        <a href="/management"><button>Back</button></a>
+    </div>
+    <div class="container">
+        <form action="/management/editGenre/<%= item.genre_id %>" method="post">
+            <label for="genre">Genre:</label>
+            <input type="text" value="<%= item.genre %>">
 
-        <label for="genre">Genre:</label>
-        <input type="text" value="<%= item.genre %>">
-
-        <button type="submit">Submit</button>
-    </form>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
 </body>
 </html>

@@ -4,18 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Developer</title>
+    <link rel="stylesheet" href="/editSecondary.css">
 </head>
 <body>
     <%- include('navbar',{title: 'Game Management App'}) %>
+    <div class="back">
+        <a href="/management"><button>Back</button></a>
+    </div>
+    <div class="container">
+        <form action="/management/editDev/<%= item.dev_id %>" method="post">
+            <label for="dev_name">Developer Name</label>
+            <input type="text" name="dev_name" value="<%= item.dev_name %>" required>
+
+            <button type="submit"> Submit</button>
+        </form>
+    </div>
     
-    <form action="/management/editDev/<%= item.dev_id %>" method="post">
-        <label for="dev_id"> Developer ID</label>
-        <input type="text" name="dev_id" value="<%= item.dev_id %>" readonly>
-
-        <label for="dev_name">Developer Name</label>
-        <input type="text" name="dev_name" value="<%= item.dev_name %>" required>
-
-        <button type="submit"> Submit</button>
-    </form>
 </body>
 </html>

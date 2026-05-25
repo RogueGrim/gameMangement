@@ -7,12 +7,18 @@
             <thead>
                 <tr>
                     <th>Available Genres</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
                 <% genreData.forEach(item =>{ %>
                     <tr>
                         <td><%= item.genre %></td>
+                        <td>
+                            <a href="/management/editGenre/<%= item.genre_id %>">
+                                <button>Edit</button>
+                            </a>
+                        </td>
                     </tr>
                 <% }) %>
             </tbody>
@@ -24,12 +30,18 @@
             <thead>
                 <tr>
                     <th>Available Developers</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
                 <% devData.forEach(item =>{ %>
                     <tr>
                         <td><%= item.dev_name %></td>
+                        <td>
+                            <a href="/management/editDev/<%= item.dev_id %>">
+                                <button>Edit</button>
+                            </a>
+                        </td>
                     </tr>
                 <% }) %>
             </tbody>
@@ -64,9 +76,9 @@
                             <% }) %>
                         </td>
                         <td>
-                            <form action="/management/editGame/<%= item.game_id %>">
-                                <button  class="editBtn" type="submit">Edit</button>
-                            </form>
+                            <a href="/management/editGame/<%= item.game_id %>">
+                                <button  class="editBtn">Edit</button>
+                            </a>
                         </td>
                     </tr>
                 <% }) %>
