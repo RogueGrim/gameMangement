@@ -111,17 +111,15 @@ async function updateGenre(req, res) {
 async function addGame(req, res) {
     const genredata = await db.getGenreInfo() //pass genre information 
     const devData = await db.getDevInfo() // pass dev information
-    const id = await db.getNewGameID() // get new id for inserting
     const genreInfo = await db.getGenreEntry() //get all genres related to game
 
-    res.render('addGameForm',{genre:genredata, dev: devData,id:id, genre_info: genreInfo})
+    res.render('addGameForm',{genre:genredata, dev: devData, genre_info: genreInfo})
 }
 
 //function to pass data to add new game
 async function handleGameData(req, res) {
     const data = req.body
-    const gameId = req.params.id
-    await db.addNewGame(gameId,data)
+    await db.addNewGame(data)
     res.redirect('/management')
 }
 

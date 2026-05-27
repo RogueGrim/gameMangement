@@ -20,13 +20,13 @@ router.post('/management/editGame/:id', Controller.updateGame)
 router.post('/management/deleteGame/:id', Controller.deleteGameEntry)
 
 router.get('/management/addGame', Controller.addGame)
-router.post('/management/addGame/:id', Controller.handleGameData)
+router.post('/management/addGame', Controller.handleGameData)
 
 router.get('/management/addDev', Controller.addDev)
 router.post('/management/addDev', Controller.handleDevData)
 
 router.get('/management/addGenre', Controller.addGenre)
-router.post('/management/addGenre/:id', Controller.handleGenreData)
+router.post('/management/addGenre', Controller.handleGenreData)
 
 router.use(Controller.handleError)
 

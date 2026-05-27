@@ -316,17 +316,13 @@ async function getGenreEntry(id) {
     return rows
 }
 
-//function to get new gameId for inserting new game entry
-async function getNewGameID(){
+//function to insert new game information in game_info table
+async function addNewGame(data) {
+
     const getCount = await pool.query('SELECT COUNT(game_id) FROM game_info')
     const count = parseInt(getCount.rows[0].count) //to get count of all entries in table to get id for new entry
     const gameID = `G${count+1}`
 
-    return gameID
-}
-
-//function to insert new game information in game_info table
-async function addNewGame(gameID,data) {
     const addGame = `
         INSERT INTO game_info(game_id,game_name) VALUES
         ($1,$2)
@@ -375,6 +371,5 @@ module.exports = {
     addNewDev,
     addNewGenre,
     getGenreEntry,
-    addNewGame,
-    getNewGameID
+    addNewGame
 }
